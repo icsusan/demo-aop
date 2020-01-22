@@ -1,4 +1,4 @@
-package com.aop.demoaop.rest.dto;
+package com.aop.demoaop.rest.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

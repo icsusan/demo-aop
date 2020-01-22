@@ -1,4 +1,4 @@
-package com.aop.demoaop.domain;
+package com.aop.demoaop.domain.persist;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

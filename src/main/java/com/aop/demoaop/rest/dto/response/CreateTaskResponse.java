@@ -1,4 +1,4 @@
-package com.aop.demoaop.rest.dto;
+package com.aop.demoaop.rest.dto.response;
 
 import java.io.Serializable;
 

@@ -1,10 +1,10 @@
 package com.aop.demoaop.service;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.aop.demoaop.domain.Task;
-import com.aop.demoaop.rest.dto.CreateTaskRequest;
+import com.aop.demoaop.domain.persist.Task;
+import com.aop.demoaop.rest.dto.beans.TasksDto;
+import com.aop.demoaop.rest.dto.request.CreateTaskRequest;
 
 public interface TaskService {
 
@@ -12,7 +12,7 @@ public interface TaskService {
 
     public Optional<Task> get(String id);
     
-    public List<Task> getAll();
+    public TasksDto getAll();
 
     public void delete(String id);
 

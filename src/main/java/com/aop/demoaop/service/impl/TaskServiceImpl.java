@@ -8,9 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aop.demoaop.domain.Task;
+import com.aop.demoaop.domain.persist.Task;
+import com.aop.demoaop.domain.util.StatusType;
+import com.aop.demoaop.domain.util.TaskType;
 import com.aop.demoaop.repository.TaskRepository;
-import com.aop.demoaop.rest.dto.CreateTaskRequest;
+import com.aop.demoaop.rest.dto.beans.TasksDto;
+import com.aop.demoaop.rest.dto.request.CreateTaskRequest;
 import com.aop.demoaop.service.TaskService;
 
 @Service
@@ -31,7 +34,7 @@ public class TaskServiceImpl implements TaskService {
 		task.setName(request.getName());
 
 		if (StringUtils.isBlank(request.getType())) {
-			task.setType("G");
+			task.setType(TaskType.GENERIC_TASK.getType());
 		} else {
 			task.setType(request.getType());
 		}
@@ -39,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
 		task.setAssignedTo(request.getResponsible());
 		
 		if (StringUtils.isBlank(request.getStatus())) {
-			task.setStatus("C");
+			task.setStatus(StatusType.CREATED_STATUS.getType());
 		} else {
 			task.setStatus(request.getStatus());
 		}
@@ -66,8 +69,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Task> getAll() {
-		return taskRepository.findAll();
+	public TasksDto getAll() {
+		List<Task> tasks = taskRepository.findAll();
+		return new TasksDto(tasks);
 	}
     
 }
