@@ -1,5 +1,9 @@
 package com.aop.demoaop.util;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +38,14 @@ public class ConverterUtil {
         	log.info("Exception : ", e);
             throw e;
         }
+    }
+    
+    public static String convertTimestampToStringValueFormat(Timestamp date, String outputFormat) {
+    	if (Objects.nonNull(date)) {
+        	SimpleDateFormat formatter = new SimpleDateFormat(outputFormat);
+        	return formatter.format(date);
+    	}
+    	return null;
     }
 
 }
