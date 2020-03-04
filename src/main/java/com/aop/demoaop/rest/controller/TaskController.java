@@ -49,7 +49,7 @@ public class TaskController {
     }
     
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Callable<TasksDto> getAllTasks() {
+    public Callable<TasksDto> getAll() {
         return () -> taskService.getAll();
     }
       
@@ -60,4 +60,13 @@ public class TaskController {
             return ResponseEntity.accepted().build();
         };
     }
+    
+    @RequestMapping(value = PATH_ID, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Callable<ResponseEntity<Void>> delete(@PathVariable(ID) final String id) {
+        return () -> { 
+        	taskService.delete(id);
+        	return ResponseEntity.accepted().build();
+        };
+    } 
+    
 }

@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,7 +52,6 @@ public class Task implements Serializable {
 	@Column(name = "createdby")
 	private String createdBy;
 	
-	@ReadOnlyProperty
 	@Column(name = "createddate")
 	private Timestamp createdDate;
 	

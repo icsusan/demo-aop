@@ -49,6 +49,7 @@ public class TaskServiceImpl implements TaskService {
 			task.setStatus(request.getStatus());
 		}
 		
+		task.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		task.setCreatedBy(request.getOperator());
 		
 		task = taskRepository.save(task);
@@ -95,11 +96,6 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void delete(String id) {
 		taskRepository.deleteById(id);
-	}
-
-	@Override
-	public void deleteAll() {
-		taskRepository.deleteAll();
 	}
 
 }
