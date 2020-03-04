@@ -1,7 +1,5 @@
 package com.aop.demoaop.rest.controller;
 
-import java.util.concurrent.Callable;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aop.demoaop.aop.Timed;
 import com.aop.demoaop.rest.dto.beans.TaskDto;
 import com.aop.demoaop.rest.dto.beans.TasksDto;
 import com.aop.demoaop.rest.dto.request.CreateTaskRequest;
@@ -33,40 +32,35 @@ public class TaskController {
         this.taskService = taskService;
     }
     
+    @Timed
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.POST)
-    public Callable<ResponseEntity<Void>> create(@RequestBody CreateTaskRequest request) {
-        return () -> {
-            taskService.save(request);
-            return ResponseEntity.accepted().build();
-        };
+    public ResponseEntity<Void> create(@RequestBody CreateTaskRequest request) {
+        taskService.save(request);
+        return ResponseEntity.accepted().build();
     }
 
     @RequestMapping(value = PATH_ID, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Callable<ResponseEntity<TaskDto>> get(@PathVariable(ID) final String id) {
-        return () -> taskService.get(id)
+    public ResponseEntity<TaskDto> get(@PathVariable(ID) final String id) {
+        return taskService.get(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Callable<TasksDto> getAll() {
-        return () -> taskService.getAll();
+    public TasksDto getAll() {
+        return taskService.getAll();
     }
       
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.PUT)
-    public Callable<ResponseEntity<Void>> update(@RequestBody UpdateTaskRequest request) {
-        return () -> {
-            taskService.update(request);
-            return ResponseEntity.accepted().build();
-        };
+    public ResponseEntity<Void> update(@RequestBody UpdateTaskRequest request) {
+    	taskService.update(request);
+    	return ResponseEntity.accepted().build();
     }
     
     @RequestMapping(value = PATH_ID, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Callable<ResponseEntity<Void>> delete(@PathVariable(ID) final String id) {
-        return () -> { 
-        	taskService.delete(id);
-        	return ResponseEntity.accepted().build();
-        };
+    public ResponseEntity<Void> delete(@PathVariable(ID) final String id) {
+    	taskService.delete(id);
+    	return ResponseEntity.accepted().build();
     } 
     
 }
