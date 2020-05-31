@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aop.demoaop.aop.Timed;
+import com.aop.demoaop.annotation.Timed;
 import com.aop.demoaop.rest.dto.beans.TaskDto;
 import com.aop.demoaop.rest.dto.beans.TasksDto;
 import com.aop.demoaop.rest.dto.request.CreateTaskRequest;
@@ -47,8 +47,10 @@ public class TaskController {
     }
     
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public TasksDto getAll() {
-        return taskService.getAll();
+    public ResponseEntity<TasksDto> getAll() {
+        return taskService.getAll()
+        		.map(ResponseEntity::ok)
+        		.orElse(ResponseEntity.notFound().build());
     }
       
     @RequestMapping(value = PATH_ROOT, method = RequestMethod.PUT)

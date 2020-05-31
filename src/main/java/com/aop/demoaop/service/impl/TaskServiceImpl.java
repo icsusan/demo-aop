@@ -62,12 +62,12 @@ public class TaskServiceImpl implements TaskService {
 		if (task.isPresent()) {
 			return Optional.of(new TaskDto(task.get()));
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	@Override
-	public TasksDto getAll() {
-		return new TasksDto(taskRepository.findAll());
+	public Optional<TasksDto> getAll() {
+		return Optional.of(new TasksDto(taskRepository.findAll()));
 	}
 	
 	@Override

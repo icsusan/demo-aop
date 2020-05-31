@@ -13,7 +13,7 @@ public interface TaskService {
 
     public Optional<TaskDto> get(String id);
     
-    public TasksDto getAll();
+    public Optional<TasksDto> getAll();
     
     public void update(UpdateTaskRequest request);
 

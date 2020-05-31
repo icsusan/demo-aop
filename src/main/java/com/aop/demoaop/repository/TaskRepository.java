@@ -10,6 +10,4 @@ import com.aop.demoaop.domain.persist.Task;
  */
 public interface TaskRepository extends JpaRepository<Task, String> {
 
-//	DatosContactoDireccionDetalleTrazaOnb findTop1ByTrazaOnbAndIdRastreoSesionOrderByIdDesc(TrazaOnb trazaOnb, String idRastreoSesion);
-
 }
